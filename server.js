@@ -24,10 +24,27 @@ fs.createReadStream('submission.csv')
   });
 
 // 1. Endpoint: Get all patients with their latest calculated risk score
+// app.get('/api/patients', (req, res) => {
+//   const patientMap = {};
+  
+//   sepsisData.forEach(row => {
+//     if (!patientMap[row.Patient_ID] || row.Hour >= patientMap[row.Patient_ID].Hour) {
+//       patientMap[row.Patient_ID] = {
+//         Patient_ID: row.Patient_ID,
+//         latestHour: row.Hour,
+//         riskScore: parseFloat((row.SepsisLabel * 100).toFixed(1)) // converted to %
+//       };
+//     }
+//   });
+
+//   res.json(Object.values(patientMap));
+// });
+// 1. Endpoint: Get unique list of all patients with their latest calculated risk score
 app.get('/api/patients', (req, res) => {
   const patientMap = {};
   
   sepsisData.forEach(row => {
+    // Keep track of the latest hour for each patient
     if (!patientMap[row.Patient_ID] || row.Hour >= patientMap[row.Patient_ID].Hour) {
       patientMap[row.Patient_ID] = {
         Patient_ID: row.Patient_ID,
@@ -39,6 +56,7 @@ app.get('/api/patients', (req, res) => {
 
   res.json(Object.values(patientMap));
 });
+
 
 // 2. Endpoint: Get hour-by-hour time series trajectory for a specific patient
 // app.get('/api/patient/:id', (req, res) => {
