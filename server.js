@@ -41,6 +41,20 @@ app.get('/api/patients', (req, res) => {
 });
 
 // 2. Endpoint: Get hour-by-hour time series trajectory for a specific patient
+// app.get('/api/patient/:id', (req, res) => {
+//   const patientId = req.params.id;
+//   const patientRecords = sepsisData.filter(row => row.Patient_ID == patientId);
+  
+//   if (patientRecords.length === 0) {
+//     return res.status(404).json({ error: 'Patient not found' });
+//   }
+
+//   patientRecords.sort((a, b) => a.Hour - b.Hour);
+//   res.json(patientRecords);
+// });
+
+
+// 2. Endpoint: Get hour-by-hour time-series trajectory for a specific patient
 app.get('/api/patient/:id', (req, res) => {
   const patientId = req.params.id;
   const patientRecords = sepsisData.filter(row => row.Patient_ID == patientId);
@@ -49,6 +63,7 @@ app.get('/api/patient/:id', (req, res) => {
     return res.status(404).json({ error: 'Patient not found' });
   }
 
+  // Sort chronologically by hour
   patientRecords.sort((a, b) => a.Hour - b.Hour);
   res.json(patientRecords);
 });
