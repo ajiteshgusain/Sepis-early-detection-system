@@ -41,6 +41,11 @@ function ChartTip({ active, payload, label }) {
 }
 
 export default function App() {
+  
+  
+
+
+  
   const [page, setPage] = useState('overview')
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('ALL')
